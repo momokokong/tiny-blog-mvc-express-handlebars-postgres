@@ -1,75 +1,103 @@
-// const router = require('express').Router();
-// const { User } = require('../../models');
+const router = require('express').Router();
+const { Post, Comment, User } = require('../../models');
 
-// // CREATE new user
-// router.post('/', async (req, res) => {
-//   try {
-//     const dbUserData = await User.create({
-//       username: req.body.username,
-//       email: req.body.email,
-//       password: req.body.password,
-//     });
+// GEt all comments
+router.get('/', async (req, res) => {
+  try {
+    const commentData = await Comment.findAll();
+    if (!commentData) {
+      res.status(404).json({ message: 'No post!' });
+      return;
+    }
+    const comments = commentData.map((comment) => comment.toJSON());
+    console.log(comments);
+    res.status(200).json(comments);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
-// console.log(dbUserData);
+// Get comment by post_id
+router.get('/:post_id', async (req, res) => {
+  try {
+    const commentData = await Comment.findAll({
+      where: {
+        post_id: req.params.post_id,
+      },
+      include: [{model: User, attributes: {exclude: ['password']}}]
+    });
+            
+    if (!commentData) {
+      res.status(404).json({ message: 'No comment with this id!' });
+      return;
+    }
 
-//     req.session.save(() => {
-//       req.session.loggedIn = true;
+    const comments = commentData.map((comment) => comment.toJSON());
+    console.log(comments);
+    res.status(200).json(comments);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
-//       res.status(200).json(dbUserData);
-//     });
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json(err);
-//   }
-// });
+router.post('/', async (req, res) => {
+  // todo check whether there is the post
+  // todo redirect to login if not login
+  try {
+    const commentData = await Comment.create({
+      content: req.body.content,
+      post_id: req.body.post_id,
+      user_id: req.session.uid,
+    });
+    res.status(200).json(commentData);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
 
-// // Login
-// router.post('/login', async (req, res) => {
-//   try {
-//     const dbUserData = await User.findOne({
+// router.put('/:id', (req, res) => {
+//   comment.update(
+//     {
+//       title: req.body.title,
+//       content: req.body.content,
+//       user_id: req.session.uid,
+//     },
+//     {
 //       where: {
-//         email: req.body.email,
+//         id: req.params.id,
 //       },
-//     });
-
-//     if (!dbUserData) {
-//       res
-//         .status(400)
-//         .json({ message: 'Incorrect email or password. Please try again!' });
-//       return;
 //     }
-
-//     const validPassword = await dbUserData.checkPassword(req.body.password);
-
-//     if (!validPassword) {
-//       res
-//         .status(400)
-//         .json({ message: 'Incorrect email or password. Please try again!' });
-//       return;
-//     }
-
-//     req.session.save(() => {
-//       req.session.loggedIn = true;
-
-//       res
-//         .status(200)
-//         .json({ user: dbUserData, message: 'You are now logged in!' });
+//   )
+//     .then((updatedcomment) => {
+//       if (updatedcomment[0] === 0) {
+//         res.status(404).json({ message: 'No comment found with that id!' });
+//         return;
+//       }
+//       res.json(updatedcomment);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       res.json(err);
 //     });
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json(err);
-//   }
 // });
 
-// // Logout
-// router.post('/logout', (req, res) => {
-//   if (req.session.loggedIn) {
-//     req.session.destroy(() => {
-//       res.status(204).end();
-//     });
-//   } else {
-//     res.status(404).end();
-//   }
-// });
+router.delete('/:id', async (req, res) => {
+  try {
+    const commentData = await Comment.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
 
-// module.exports = router;
+    if (commentData === 0) {
+      res.status(404).json({ message: 'No comment found with that id!' });
+      return;
+    }
+
+    res.status(200).json(commentData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+module.exports = router;

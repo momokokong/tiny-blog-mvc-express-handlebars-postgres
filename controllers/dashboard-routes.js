@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Gallery, Painting } = require('../models');
+const { User, Post, Comment } = require('../models');
 const auth = require('../utils/auth');
 
 router.get('/dashboard', auth, async (req, res) => {

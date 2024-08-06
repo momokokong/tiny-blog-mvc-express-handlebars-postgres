@@ -1,0 +1,22 @@
+
+<section class="card" id="{{post.id}}">
+  <a href="/post/{{id}}">
+    <h1>{{post.title}}</h1>
+    <div>Last updated: {{last_updated post.updatedAt}}</div>
+    <div>{{post.content}}</div>
+    <div>{{post.User.username}}</div>
+  </a>
+</section>
+{{#each post.Comments as |comment|}}
+<div class="card" id="{{comment.id}}"> 
+    <div>Last updated: {{last_updated comment.updatedAt}}</div>
+    <div>{{comment.content}}</div>
+    <div>{{comment.User.username}}</div>
+</div>
+{{/each}}
+
+    {{#if loggedIn}}
+    <button id="post-comment" class="btn-no-style">Add comment</button>
+    {{else}}
+    <h2>Log in to leave comments</h2>
+    {{/if}}

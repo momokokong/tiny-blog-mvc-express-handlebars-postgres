@@ -42,7 +42,7 @@ router.get('/post/:id', async (req, res) => {
     }
 
     const post = postData.toJSON();
-
+    console.log(post);
     res.render('post', {
       post,
       loggedIn: req.session.loggedIn,

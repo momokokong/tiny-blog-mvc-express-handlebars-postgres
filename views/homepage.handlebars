@@ -1,11 +1,9 @@
 {{#each posts as |post|}}
 <section class="card" id="{{post.id}}">
   <a href="/post/{{id}}">
-    <h1>{{post.title}}</h1>
-    {{!-- <img src="/images/{{paintings.[0].filename}}" alt="{{paintings.[0].description}}"> --}}
-    <div>{{last_updated post.updatedAt}}</div>
-    <div>{{post.content}}</div>
-    <div>{{post.User.username}}</div>
+    <h1 class="card-header">{{post.title}}</h1>
+    <div class="card-body">{{post.content}}</div>
+    <div class="card-footer">by {{post.User.username}} on {{last_updated post.updatedAt}}</div>
   </a>
 </section>
 {{/each}}

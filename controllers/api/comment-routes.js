@@ -41,12 +41,10 @@ router.get('/:post_id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  // todo check whether there is the post
-  // todo redirect to login if not login
   try {
     const commentData = await Comment.create({
       content: req.body.content,
-      post_id: req.body.post_id,
+      post_id: req.session.pid,
       user_id: req.session.uid,
     });
     res.status(200).json(commentData);

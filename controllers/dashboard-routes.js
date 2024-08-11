@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { User, Post, Comment } = require('../models');
 const auth = require('../utils/auth');
 
-router.get('/dashboard', auth, async (req, res) => {
+router.get('/', auth, async (req, res) => {
   try {
     console.log("looking for uid " + req.session.uid + " posts");
     const postData = await Post.findAll({

@@ -1,6 +1,16 @@
 const router = require('express').Router();
 const { Post, User, Comment } = require('../models');
 
+router.get('/', async (req, res) => {
+  try {
+    res.render('addPost', {
+      uid: req.session.uid,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 router.get('/:id', async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {

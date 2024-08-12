@@ -44,7 +44,7 @@ router.post('/', async (req, res) => {
   try {
     const commentData = await Comment.create({
       content: req.body.content,
-      post_id: req.session.pid,
+      post_id: req.body.post_id,
       user_id: req.session.uid,
     });
     res.status(200).json(commentData);
@@ -52,32 +52,6 @@ router.post('/', async (req, res) => {
     res.status(400).json(err);
   }
 });
-
-// router.put('/:id', (req, res) => {
-//   comment.update(
-//     {
-//       title: req.body.title,
-//       content: req.body.content,
-//       user_id: req.session.uid,
-//     },
-//     {
-//       where: {
-//         id: req.params.id,
-//       },
-//     }
-//   )
-//     .then((updatedcomment) => {
-//       if (updatedcomment[0] === 0) {
-//         res.status(404).json({ message: 'No comment found with that id!' });
-//         return;
-//       }
-//       res.json(updatedcomment);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       res.json(err);
-//     });
-// });
 
 router.delete('/:id', async (req, res) => {
   try {

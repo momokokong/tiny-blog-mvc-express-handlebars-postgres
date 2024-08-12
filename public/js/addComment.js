@@ -4,7 +4,7 @@ addComment.addEventListener('click', () => {
     const commentContent = document.querySelector('#comment-content').value;
     fetch('/api/comments', {
         method: 'POST',
-        body: JSON.stringify({ content: commentContent }),
+        body: JSON.stringify({ content: commentContent, post_id: addComment.dataset.pid }),
         headers: { 'Content-Type': 'application/json' },
     })
     .then(response => {

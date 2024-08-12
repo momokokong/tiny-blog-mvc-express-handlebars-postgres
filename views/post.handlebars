@@ -1,4 +1,21 @@
 
+{{#if edit}}
+<h2>Edit a post</h2>
+<form class="form" id="post-form">
+  <div class="form-group">
+    <label for="post-title">Post title:</label>
+    <textarea class="form-input" id="post-title" rows="1">{{post.title}}</textarea>
+    <label for="post-content">Post content:</label>
+    <textarea class="form-input" id="post-content" rows="3">{{post.content}}</textarea>
+  </div>
+  <div class="form-group">
+    <button class="btn" id="edit-post" type="submit" data-pid="{{post.id}}">Submit</button>
+  </div>
+</form>
+<script src="/js/editPost.js"></script>
+
+{{else}}
+
 <section class="card" id="{{post.id}}">
     <h1 class="card-header">{{post.title}}</h1>
     <div class="card-body">{{post.content}}</div>
@@ -13,8 +30,12 @@
 {{/each}}
 
 {{#if loggedIn}}
-<button id="add-comment" class="btn" data-pid="{{post.id}}"> Add comment</button>
+{{#if author}}
+<button id="edit-post" class="btn" data-pid="{{post.id}}">Edit post</button><br>
+{{/if}}
+<button id="add-comment" class="btn" data-pid="{{post.id}}">Add comment</button>
 <script src="/js/post.js"></script>
 {{else}}
-<h2>Log in to leave comments</h2>
+<h2><a href="/login">Login</a> to leave comments</h2>
+{{/if}}
 {{/if}}

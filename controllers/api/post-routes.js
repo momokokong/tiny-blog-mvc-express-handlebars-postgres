@@ -48,11 +48,11 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
+  console.log(req.body);
   Post.update(
     {
       title: req.body.title,
       content: req.body.content,
-      user_id: req.session.uid,
     },
     {
       where: {
@@ -61,6 +61,7 @@ router.put('/:id', (req, res) => {
     }
   )
     .then((updatedPost) => {
+      console.log(updatedPost);
       if (updatedPost[0] === 0) {
         res.status(404).json({ message: 'No post found with that id!' });
         return;

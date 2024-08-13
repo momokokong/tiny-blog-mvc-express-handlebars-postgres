@@ -1,3 +1,5 @@
+// log the received requests on the server side console.  copied from the class activity.
+
 const clog = (req, res, next) => {
   const fgCyan = '\x1b[36m';
   switch (req.method) {

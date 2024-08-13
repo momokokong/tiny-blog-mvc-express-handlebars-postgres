@@ -1,3 +1,5 @@
+// index.js is the starting point to seed the demo data.  run npm run seed from console.
+
 const sequelize = require('../config/connection');
 const seedUsers = require('./userData');
 const seedComments = require('./commentData');

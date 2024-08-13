@@ -1,3 +1,7 @@
+// A user can have many posts.  A post belongs to one user.
+// A user can have many comments.  A comment belongs to one user.
+// A post can have many comments.  A comment belongs to one post.
+
 const User = require('./User');
 const Post = require('./Post');
 const Comment = require('./Comment');

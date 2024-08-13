@@ -1,3 +1,17 @@
+// User
+// - id
+//   - Integer.
+//   - Doesn't allow null value.
+//   - Set as primary key.
+//   - Uses auto increment.
+// - username
+//   - String.
+//   - unique
+// - password
+//   - Bcrypt 10 rounds.
+//   - String
+
+
 const { Model, DataTypes } = require('sequelize');
 const bcrypt = require('bcrypt');
 const sequelize = require('../config/connection');

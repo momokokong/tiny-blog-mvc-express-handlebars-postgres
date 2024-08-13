@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { Post, User, Comment } = require('../models');
 
+// /post to add a post associated with the user id
 router.get('/', async (req, res) => {
   try {
     res.render('addPost', {
@@ -11,6 +12,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+// /post/:id to view a specific post where id is the post_id
 router.get('/:id', async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
@@ -37,6 +39,8 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+
+// /post/edit/:id to edit a post where the id is the post_id
 router.get('/edit/:id', async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id);

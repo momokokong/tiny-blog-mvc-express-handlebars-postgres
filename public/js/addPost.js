@@ -1,3 +1,5 @@
+// button listner for add post.  Note that the user id is coming from addPost.dataset.uid
+
 const addPost = document.querySelector('#add-post');
 
 addPost.addEventListener('click', (event) => {

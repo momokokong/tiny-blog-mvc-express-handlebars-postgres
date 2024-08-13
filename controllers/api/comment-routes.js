@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { Post, Comment, User } = require('../../models');
 
-// GEt all comments
+// /api/comments get all comments
 router.get('/', async (req, res) => {
   try {
     const commentData = await Comment.findAll();
@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Get comment by post_id
+// /api/comment/:post_id Get comments by post_id
 router.get('/:post_id', async (req, res) => {
   try {
     const commentData = await Comment.findAll({
@@ -40,6 +40,7 @@ router.get('/:post_id', async (req, res) => {
   }
 });
 
+// POST to /api/comments/ create a comment
 router.post('/', async (req, res) => {
   try {
     const commentData = await Comment.create({
@@ -53,6 +54,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+// /api/comments/:id to delete a post.  not actually used in the website but kept here for testing purposes
 router.delete('/:id', async (req, res) => {
   try {
     const commentData = await Comment.destroy({

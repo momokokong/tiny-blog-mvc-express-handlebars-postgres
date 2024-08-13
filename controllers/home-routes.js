@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { Post, User, Comment } = require('../models');
 const auth = require('../utils/auth');
 
+// /sessiondate for testing purposes
 router.get("/sessiondata", auth, (req, res) => {
   res.json(req.session);
 });
@@ -30,6 +31,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+// /login shows the login page.  if logged in already, redirect to /.
 router.get('/login', (req, res) => {
   if (req.session.loggedIn) {
     res.redirect('/');
@@ -37,6 +39,12 @@ router.get('/login', (req, res) => {
   }
 
   res.render('login');
+});
+
+// /logout destroy the login session and redirect back to /.
+router.get("/logout", (req, res) => {
+  req.session.destroy();
+  res.redirect("/");
 });
 
 module.exports = router;

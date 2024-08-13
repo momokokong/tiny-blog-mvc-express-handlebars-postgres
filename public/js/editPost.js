@@ -1,3 +1,4 @@
+// button listner for edit post.  Note that the post_id is coming from editPost.dataset.pid
 const editPost = document.querySelector('#edit-post');
 
 editPost.addEventListener('click', () => {

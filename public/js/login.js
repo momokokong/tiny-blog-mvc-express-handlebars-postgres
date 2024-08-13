@@ -1,3 +1,5 @@
+// button listners on the /login that logins or signs up the user
+
 const loginFormHandler = async (event) => {
   event.preventDefault();
 

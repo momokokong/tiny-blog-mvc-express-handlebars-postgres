@@ -1,3 +1,5 @@
+// button listner for addCOmment.  Note that the post_id is coming from addComment.dataset.pid
+
 const addComment = document.querySelector('#comment-submit');
 
 addComment.addEventListener('click', () => {
